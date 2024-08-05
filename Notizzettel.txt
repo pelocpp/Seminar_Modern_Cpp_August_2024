@@ -19,6 +19,14 @@ b) Github
 
 =============================================
 
+= Fragen:
+
+https://stackoverflow.com/questions/55883162/why-does-stdvector-allow-the-use-of-a-throwable-move-constructor-for-the-type
+
+
+
+=============================================
+
 = Was sind meine Erwartungen?
 
 = Welche Sprachen kenne ich noch?

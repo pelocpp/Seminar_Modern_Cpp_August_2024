@@ -25,16 +25,13 @@ namespace Exercises_MoveSemantics {
             //    m_name = other.m_name;
             //}
 
-            Person(const Person& other) = delete;
+            explicit Person(const Person& other) = delete;
 
-            Person(Person&& other)
+            explicit Person(Person&& other) // noexcept
             {
-                throw 99;
                 m_name = std::move (other.m_name);
             }
 
-
-            
      //      ~Person() {}
 
             void addValue(int value) {
@@ -73,14 +70,13 @@ namespace Exercises_MoveSemantics {
             // insert person into a collection
             std::vector<Person> persons;
             
-            persons.push_back(std::move( dagobert));
+            persons.push_back(std::move(dagobert));
 
             Person dagobert2{ "Dagobert2 Duck2" };
             persons.push_back(std::move(dagobert2));
             
-         //   persons.push_back(std::move(dagobert));
-
-          //  persons.emplace_back("adasdas");
+            Person dagobert3{ "Dagobert3 Duck3" };
+            persons.push_back(std::move(dagobert3));
 
             // print person again
             std::cout << "Person: " << dagobert << std::endl;
