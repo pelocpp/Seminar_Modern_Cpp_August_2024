@@ -7,7 +7,9 @@ module modern_cpp:lambda;
 namespace Lambdas {
 
     static bool compare (int n1, int n2) {
-        return n1 < n2;
+
+        std::cout << " vergl. " << n1 << " mit " << n2 << std::endl;
+        return n1 > n2;
     }
 
     class Comparer
@@ -17,9 +19,11 @@ namespace Lambdas {
 
     public:
         Comparer() : m_flag{ true } {}
+
         Comparer(bool flag) : m_flag{ flag } {}
 
         bool operator() (int n1, int n2) const {
+            std::cout << " Comparer: " << n1 << " mit " << n2 << std::endl;
             return (m_flag) ? n1 < n2 : n1 > n2;
         }
     };
@@ -27,7 +31,9 @@ namespace Lambdas {
     static void test_00()
     {
         Comparer obj{ false };
-        bool result = obj(1, 2);
+
+        bool result = obj (1, 2);
+
         std::cout << std::boolalpha << result << std::endl;
     }
 
@@ -44,6 +50,8 @@ namespace Lambdas {
             LocalComparer(bool flag) : m_flag{ flag } {}
 
             bool operator() (int n1, int n2) const {
+                std::cout << " LocalComparer: " << n1 << " mit " << n2 << std::endl;
+
                 return (m_flag) ? n1 < n2 : n1 > n2;
             }
         };
@@ -55,13 +63,43 @@ namespace Lambdas {
         }
         std::cout << std::endl;
 
-        std::sort(std::begin(vec), std::end(vec), compare);
+        std::sort(
+            //std::begin(vec),
+            //std::end(vec), 
+            vec.begin(),
+            vec.end(),
+            compare
+        );
+
         // or
-        std::sort(std::begin(vec), std::end(vec), Comparer{});
+        std::sort(
+            std::begin(vec),
+            std::end(vec),
+            Comparer(false)
+        );
+        
         // or
-        std::sort(std::begin(vec), std::end(vec), Comparer{false});
+        std::sort(
+            std::begin(vec),
+            std::end(vec),
+            LocalComparer{}
+        );
+
+        // Berechnungen ...............
+
+        bool m_flag = true; // aufwärts
+
         // or
-        std::sort(std::begin(vec), std::end(vec), LocalComparer{});
+        std::sort(
+            std::begin(vec),
+            std::end(vec),
+
+            [&] (int n1, int n2) -> bool {
+                std::cout << " Lambda: " << n1 << " mit " << n2 << std::endl;
+                return (m_flag) ? n1 < n2 : n1 > n2;
+                // return n1 < n2;
+            }
+        );
 
         for (int n : vec) {
             std::cout << n << ' ';
@@ -107,9 +145,12 @@ namespace Lambdas {
 
     static void test_04() {
 
+        // C: Funktionszeiger  // Signatur
+        int (*fp) (int, int, int);
+
         // defining a lambda without 'auto'
-        std::function<int(int, int, int)> lambdaWithThreeParams {
-            [] (int x, int y, int z) {
+        std::function < int(int, int, int) > lambdaWithThreeParams {
+            [] (int x, int y, int z) -> int {
                 return x + y + z;
             }
         };
@@ -125,8 +166,51 @@ namespace Lambdas {
         // in the lambda-capture without specifying its type:
 
         // lambda with variable definition
-        auto lambda = [variable = 10] () { return variable; };
+        //auto lambda = [ variable = 10 ] () mutable -> int {
+        //   // int variable = 10;
+        //    variable++;
+        //    return variable; 
+        //};
+
+        auto lambdaS = []() -> int {
+            static int variable = 10;
+            variable++;
+            return variable;
+            };
+
+        auto lambdaS2 = lambdaS;
+        
+        std::cout << lambdaS() << std::endl;
+        std::cout << lambdaS() << std::endl;
+        std::cout << lambdaS() << std::endl;
+        std::cout << lambdaS2() << std::endl;
+        std::cout << lambdaS2() << std::endl;
+        std::cout << lambdaS2() << std::endl;
+        std::cout << std::endl;
+
+        auto lambda = [variable = 10]() mutable -> int {
+            
+            variable++;
+            return variable;
+         };
+
+        auto lambda2 = lambda;
+
         std::cout << lambda() << std::endl;
+        std::cout << lambda() << std::endl;
+        std::cout << lambda() << std::endl;
+        std::cout << lambda2() << std::endl;
+        std::cout << lambda2() << std::endl;
+        std::cout << lambda2() << std::endl;
+
+        auto lambda3 = lambda;
+
+        std::cout << lambda3() << std::endl;
+        std::cout << lambda3() << std::endl;
+        std::cout << lambda3() << std::endl;
+
+        return;
+
 
         // Captures default to 'const value':
         // The mutable keyword removes the 'const' qualification from all captured variables
@@ -185,20 +269,21 @@ namespace Lambdas {
 
     static auto test_07_helper_b() {
 
-        int n = 1;
+        int n = 1;     // Closure
         int m = 2;
 
         auto lambda = [&] {
             std::cout << "Reference: " << n << " " << m << std::endl;
         };
 
-        return lambda;  // I would't do this never ever :-)
+        return lambda;    // I would't do this never ever :-)
     }
 
     static void test_07() {
 
         auto outerLambda1 = test_07_helper_a();
         auto outerLambda2 = test_07_helper_b();
+
         outerLambda1();
         outerLambda2();
     }
@@ -234,16 +319,16 @@ namespace Lambdas {
 void main_lambdas()
 {
     using namespace Lambdas;
-    test_00();
-    test_01();
-    test_02();
-    test_03();
-    test_04();
+    //test_00();
+    //test_01();
+    //test_02();
+    //test_03();
+    //test_04();
     test_05();
-    test_06();
-    test_07();
-    test_08();
-    test_09();
+   // test_06();
+   // test_07();
+    //test_08();
+    //test_09();
 }
 
 // =====================================================================================

@@ -22,11 +22,11 @@ int main()
         //main_allocator();
         //main_any();
         //main_apply();  
-        //main_argument_dependent_name_lookup();
+       // main_argument_dependent_name_lookup();
         //main_array();
         //main_array_decay();
         //main_attributes();
-        main_auto();
+       // main_auto();
         //main_back_inserter();
         //main_brace_initialization();
         //main_bind();
@@ -84,7 +84,7 @@ int main()
         //main_sso();
         //main_static_assert();
         //main_string_view();
-        //main_structured_binding();
+        main_structured_binding();
         //main_class_templates_basics_01();
         //main_class_templates_basics_02();
         //main_function_templates_basics();

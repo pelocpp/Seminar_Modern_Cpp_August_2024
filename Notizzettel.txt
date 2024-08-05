@@ -62,3 +62,75 @@ B) BigData bd ();  // Vorsicht: Funktion
 
 C) BigData bd {}; 
 
+=========================================
+
+
+
+using namespace std;
+std::swap (a, b);
+
+std::cout << "Hello World" << std::endl;
+
+
+std::operator<< (std::cout, "Hello World");
+
+=========================================
+
+Aufrufbares Objekt
+
+Funktor
+
+Klasse / Objekt, das den Operator () unterstützt.
+
+a()	   Function call
+
+a(1)	       Function call
+a(1, 2)	       Function call
+a(1, 2, 3)	   Function call
+
++ Operator:   1 + 2  ===> 2 Parameter
+
+Stelligkeit: Anzahl der Parameter
+
+() Operator:  Beliebig viele
+
+====================
+
+Elision 
+
+Initialisierung:
+
+Initialisierungs-Liste:
+=======================
+
+std::initializer_list  ===> Stack
+
+vs.
+
+std::vector:           ===> Heap 
+
+Optimierung:
+
+Vermeide HEAP bei Parameter-Übergabe.
+
+std::initializer_list:
+
+Kein STL-Container:
+
+Leichtgewichtiger Container:
+
+==> begin
+==> end
+==> size
+
+std::initializer_list und std::vector
+
+        TinyContainer tc2{ 1 };             // TinyContainer::TinyContainer(std::initializer_list<int>)
+        TinyContainer tc3(1); 
+
+
+std::vector<int> vec (10); ==> Size: 10, Werte: 0
+
+std::vector<int> vec {10}; ==> Size: 1,  Wert:  10
+
+

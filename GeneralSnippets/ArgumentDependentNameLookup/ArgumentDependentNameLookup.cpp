@@ -9,7 +9,9 @@ namespace ArgumentDependentNameLookup
     namespace MyNamespace
     {
         class MyClass {};
+
         void doSomething(MyClass) {}
+
         void doSomething() {}
     }
 
@@ -21,7 +23,7 @@ namespace ArgumentDependentNameLookup
 
             // doSomething();    // Error: 'doSomething': identifier not found
 
-            MyNamespace::doSomething();    // works
+            // MyNamespace::doSomething();    // works
 
             doSomething(obj);              // works too
         }

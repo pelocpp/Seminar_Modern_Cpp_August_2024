@@ -6,19 +6,34 @@ module modern_cpp:auto_keyword;
 
 namespace Auto_Examples {
 
-    std::map<int, std::string> getFunction() { return {}; };
+    using KeyType = int;
+
+    //template <typename T>
+    //using GenericKeyType = T;
+
+    std::map<KeyType, std::string> getFunction() { return {}; };
 
     static void test_01_a() {
 
         auto n = 123;    // n is type of int
 
         auto result = getFunction();
+        
         std::map<int, std::string> result2 = getFunction();
     }
 
     // ---------------------------------------------------------------------
 
     static void test_01_b() {
+
+
+        //var n;
+        //let x;
+
+        //n.wert = 123;
+
+        double z = 123.456F;  // Type Deduction // Typableitung
+
 
         // auto figures out the below types
 
@@ -30,8 +45,8 @@ namespace Auto_Examples {
         auto s = "hi";          // char const*
         auto b = true;          // bool
 
-        // C++ 14 and above we have std::string literals
-        using namespace std;    // This is necessary
+        // C++ 14 and above we have std::string_literals
+        using namespace std::string_literals;    // This is necessary
         auto st = "hello"s;     // std::string, note the s operator
 
         // C++ 23 and above we have size_t and signed size_t
@@ -42,11 +57,103 @@ namespace Auto_Examples {
 
     // ---------------------------------------------------------------------
 
-
     static auto sum(float f1, float f2)
     {
         return f1 + f2;
     }
+
+    //static auto tueWas(bool flag, float f, double d) -> float
+    //{
+    //    if (flag) {
+    //        return d;
+    //    }
+    //    else {
+    //        return f;
+    //    }
+
+    //    // return (flag) ? f : d;
+    //}
+
+    //template <typename T, typename U>
+    //static auto tueWas(bool flag, T f, U d) -> decltype (f + d)
+    //{
+    //    decltype(flag) zweitesFlag;
+
+    //    if (flag) {
+    //        return d;
+    //    }
+    //    else {
+    //        return f;
+    //    }
+
+    //    // return (flag) ? f : d;
+    //}
+
+    //template <typename T, typename U>
+    //static
+    //   decltype ( std::declval<T>()  + std::declval<U>() )
+    //tueWas(bool flag, T f, U d)
+    //{
+    //    decltype(flag) zweitesFlag;
+
+    //    if (flag) {
+    //        return d;
+    //    }
+    //    else {
+    //        return f;
+    //    }
+
+    //    // return (flag) ? f : d;
+    //}
+
+    // generische Funktionen mit auto
+    auto tueWas(bool flag, auto f, auto d)
+    {
+        if (flag) {
+            return d;
+        }
+        else {
+            return f;
+        }
+
+        // return (flag) ? f : d;
+    }
+
+    auto tueWas(bool flag, long f, long d)
+    {
+        if (flag) {
+            return d;
+        }
+        else {
+            return f;
+        }
+
+        // return (flag) ? f : d;
+    }
+
+    //template <typename T, typename U>
+    //auto tueWas(bool flag, T f, U d)
+    //{
+    //    if (flag) {
+    //        return d;
+    //    }
+    //    else {
+    //        return f;
+    //    }
+
+    //    // return (flag) ? f : d;
+    //}
+
+    void test_tue_was()
+    {
+        auto result1 = tueWas (false, 123ll, 123ll);
+        auto result2 = tueWas(false, 123, 123);
+        auto result3 = tueWas(false, 123l, 123l);
+    }
+
+
+
+
 
     static auto foo(bool flag, char ch, double d) -> double
     {
@@ -117,6 +224,7 @@ namespace Auto_Examples {
     static void test_01_e() {
 
         auto msg = getMessage();
+
         std::cout << "Message: " << msg << std::endl;
 
         // but:
@@ -129,6 +237,7 @@ namespace Auto_Examples {
 
         // once again 'or':
         decltype(auto) msg4 = getMessage();
+
         std::cout << "Message: " << msg4 << std::endl;
     }
 
@@ -216,6 +325,9 @@ namespace Auto_Examples {
 void main_auto()
 {
     using namespace Auto_Examples;
+
+    test_tue_was();
+
     test_01_a();
     test_01_b();
     test_01_c();

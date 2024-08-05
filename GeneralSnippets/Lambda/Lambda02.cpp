@@ -8,32 +8,37 @@ namespace LambdaAndClosure {
 
     static void test_01()
     {
-        int n{ 10 };
-        auto lambda = [n] (int a) { return n + a; };
+        int n = 10;
+
+        auto lambda = [=] (int a) { return n + a; };
+
         auto m = lambda(20);  // m is now 30
+
         std::cout << "m: " << m << std::endl;
     }
 
     static void test_02()
     {
-        class ClosureClass
+        class LambdaClass
         {
         public:
-            ClosureClass(int n) : m_n{ n } {}
+            LambdaClass(int n) : m_n{ n } {}
 
-            // if lambda is 'mutable' remove const-ness
-            int operator()(int a) const
+            int operator() (int a) const
             {
                 return m_n + a;
             }
 
         private:
-            int m_n;
+            mutable int m_n; // if lambda is 'mutable' remove const-ness
         };
 
         const int n{ 30 };
-        auto lambda = ClosureClass(n);
+
+        auto lambda = LambdaClass(n);
+
         auto m = lambda(20);    // m is now 50
+
         std::cout << "m: " << m << std::endl;
     }
 }

@@ -6,6 +6,20 @@ module modern_cpp:brace_initialization;
 
 namespace BraceInitialization {
 
+    class X 
+    {
+    private:
+        int m_n;
+
+    public:
+        X (int n) : m_n(n) {}
+    };
+
+    static void test_0000()
+    {
+        X x (123);
+    }
+
     // =================================================================================
     // Brace initialization does not allow narrowing:
     static void test_00()
@@ -15,6 +29,14 @@ namespace BraceInitialization {
 
         double d1 = ival;      // Compiles
         // double d2{ ival };  // Error: "conversion from 'int' to 'double' requires a narrowing conversion"
+    
+        float f{ 1.0F };
+
+        double d3 = f;      // Compiles
+        double d4{ f };  // Error: "conversion from 'int' to 'double' requires a narrowing conversion"
+    
+       // float f2{ d4 };
+    //    float f22 = d4 ;
     }
 
     // =================================================================================
@@ -22,7 +44,10 @@ namespace BraceInitialization {
 
     static void test_01()
     {
+        int nn = 0;
+        // äquivalent:
         int n{};              // n equals 0
+
         float f{};            // f equals 0.0
         double d{};           // d equals 0.0
         unsigned long l{};    // l equals 0
@@ -40,8 +65,12 @@ namespace BraceInitialization {
 
     static void test_02()
     {
+        int nn = 1;
+
         int n{ 1 };          // n equals 1
-        float f{ 1.5f };     // f equals 1.5
+        
+        float f{ 1.5 };     // f equals 1.5
+        
         double d{ 2.5 };     // d equals 2.5
 
         std::cout << "n: " << n << std::endl;
@@ -60,7 +89,7 @@ namespace BraceInitialization {
 
     static void test_03()
     {
-        [[ maybe_unused]] struct Struct obj0;         // uninitialized !!!
+        struct Struct obj0;                   // uninitialized !!!
         struct Struct obj1 {};                        // obj1.m_i => 0, obj1.m_j => 0
         struct Struct obj2 { 1, 2 };                  // obj2.m_i => 1, obj2.m_j => 2
         struct Struct obj3 { 3 };                     // obj3.m_i => 3, obj3.m_j => 0
@@ -169,6 +198,7 @@ namespace BraceInitialization {
     static void test_07()
     {
         int* pi = new int[5] { 1, 2, 3, 4, 5 };
+
         double* pd = new double[5] { 1.0, 2.0, 3.0, 4.0, 5.0 };
 
         for (int i = 0; i < 5; i++) {
@@ -188,9 +218,18 @@ namespace BraceInitialization {
     // =================================================================================
     // statically allocated arrays
 
+    class XXX
+    {
+        int m_intArray2[5];
+    };
+
     static void test_08()
     {
+        XXX x{};
+
         int intArray[] { 1, 2, 3, 4, 5 };
+
+        int intArray2[5] { };
 
         for (int n : intArray) {
             std::cout << n << ", ";
@@ -201,15 +240,19 @@ namespace BraceInitialization {
     // =================================================================================
     // Nested Structures / *Brace Elision* 
 
-    struct Inner {
+    struct Inner 
+    {
         int m_array[2];
     };
 
     static void test_09()
     {
         [[ maybe_unused]] Inner inner1; // uninitialized
+        
         Inner inner2{ };                // m_array[0] => 0 & m_array[1] => 0
+        
         Inner inner3{ { 1, 2 } };       // Direct initialization
+        
         Inner inner4{ 1, 2 };           // Uses Brace Elision (!) of m_array
     }
 
