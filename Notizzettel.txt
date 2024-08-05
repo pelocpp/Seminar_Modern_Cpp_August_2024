@@ -1,0 +1,64 @@
+
+
+// ==========================================
+
+Seminar Modern C++
+
+Guten Morgen
+
+Peter Loos
+
+// ==========================================
+
+a) VS Studio
+
+b) Github
+
+    https://github.com/pelocpp
+
+
+=============================================
+
+= Was sind meine Erwartungen?
+
+= Welche Sprachen kenne ich noch?
+
+= Was MUSS drin sein?
+
+-- Concepts, Metaprogramming
+
+-- Multithreading
+
+-- Delphi, Rust, Java
+
+// ==========================================
+
+new
+
+:--:  ... 20    // wird freigegeben
+:--:  ... A0
+
+:--:  ... 60
+
+
+-------------------------------------------
+
+emplace ...
+
+
+-------------------------------------------
+
+class BigData
+{
+    // data ......
+    int m_data;
+
+    BigData () = default;
+};
+
+A) BigData bd;
+
+B) BigData bd ();  // Vorsicht: Funktion
+
+C) BigData bd {}; 
+
