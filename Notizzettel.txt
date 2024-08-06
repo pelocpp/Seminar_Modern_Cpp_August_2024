@@ -41,16 +41,42 @@ Variant
 
 ...
 
+=============================================
 
 Mittwoch:
 
 Var. Templates
 
+Perfect Forwarding
+
+Folding
+
+Range-Based Loop
+
+Placement New: Trennung von Speicherallokation und Objektkonstruktion
+
+Two-Phase Name Lookup
+
 Type Erasure
 
 Buchhandlung
 
+Alle Utility Klassen
 
+std::invoke
+
+Functional Programming
+
+
+=============================================
+
+Donnerstag:
+
+MT
+
+Modules
+
+CoRoutines
 
 =============================================
 
