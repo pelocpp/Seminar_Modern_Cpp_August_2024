@@ -9,9 +9,13 @@ import std;
 
 #pragma message("Collection of Modern C++-Code Examples - Copyright (C) 2019-2024 Peter Loos")
 
+void test_conceptual_example_03();
+
 int main()
 {
     extern int _main_modules();
+
+   // test_conceptual_example_03();
 
     std::cout << "[Collection of Modern C++-Code Examples - Copyright (C) 2019-2024 Peter Loos]" << std::endl;
 
@@ -33,9 +37,9 @@ int main()
         //main_casts();
         //main_common_type();
         //main_concepts_requires_classes();
-        //main_concepts_requires_functions();
+       // main_concepts_requires_functions();
         //main_constructor_invocations();
-        //main_constexpr();
+       // main_constexpr();
         //main_constexpr_02();
         //main_constexpr_crc();
         //main_const_variants();
@@ -45,10 +49,10 @@ int main()
         //main_decltype();
         //main_default_initialization();
         //main_erase_remove_idiom();
-        //main_exercises();
+       // main_exercises();
         //main_expression_templates();
         //main_generate();
-        //main_generic_lambdas();
+       // main_generic_lambdas();
         //main_exception_safety();
         //main_explicit_keyword();
         //main_folding();
@@ -61,7 +65,7 @@ int main()
         //main_lambdas();
         //main_lambda_and_closure();
         //main_lambdas_this_closure();
-        //main_literals();
+        main_literals();
         //main_memory_leaks_detection();
         //main_metaprogramming_01();
         //main_metaprogramming_02(); 
@@ -79,7 +83,7 @@ int main()
         //main_regular_expressions();
         //main_rvalue_lvalue();
         //main_sfinae();
-        main_shared_ptr();
+        //main_shared_ptr();
         //main_source_location();
         //main_sso();
         //main_static_assert();
@@ -103,7 +107,7 @@ int main()
         //main_variadic_templates_working_on_every_argument();
         //main_variadic_templates_sum_of_sums();
         //main_variadic_templates_mixins();
-        //main_variant();
+      //  main_variant();
         //main_virtual_base_class_destructor();
         //main_virtual_override_final();
         //main_weak_pointer();

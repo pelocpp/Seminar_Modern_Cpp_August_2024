@@ -10,7 +10,9 @@ concept Numerical = std::integral<T> || std::floating_point<T>;
 
 // using <type_traits>
 template <typename T>
-concept NumericalEx = std::is_integral<T>::value || std::is_floating_point<T>::value;
+concept NumericalEx = 
+    std::is_integral<T>::value ||
+    std::is_floating_point<T>::value;
 
 namespace Requires_Clause {
 
@@ -174,6 +176,11 @@ namespace Constrained_Template_Parameters {
 
 namespace Abbreviated_Function_Templates {
 
+    //static auto add( auto a,  auto b)
+    //{
+    //    return a + b;
+    //}
+
     static auto add(Numerical auto a, Numerical auto b)
     {
         return a + b;
@@ -181,7 +188,11 @@ namespace Abbreviated_Function_Templates {
 
     static void test_abbreviated_function_template_syntax()
     {
-        float sum1 = add(123.456f, 654.321f);
+        //using namespace std::string_literals;
+        //auto sum0 = add("ABC"s, "DEF"s);
+        //std::cout << sum0 << std::endl;
+
+        auto sum1 = add(123.456f, 654.321f);
         std::cout << sum1 << std::endl;
 
         auto sum2 = add(123.456, 654.321);
@@ -206,14 +217,19 @@ namespace UserDefined_Concept {
         return arg + 1;
     }
 
+
+    auto incrementByTwo(GreatIntegral auto arg) {
+        return arg + 2;
+    }
+
     static void test_user_defined_concept()
     {
-        int n{ 123 };
-        n = incrementByOne(n);
+        auto n{ 123 };
+        n = incrementByTwo(n);
 
-        // short s{ 1 };
-        // the associated constraints are not satisfied:
-        // s = incrementByOne(s);
+         //short s{ 1 };
+         //// the associated constraints are not satisfied:
+         //s = incrementByOne(s);
     }
 }
 

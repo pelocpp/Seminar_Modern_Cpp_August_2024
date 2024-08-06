@@ -65,10 +65,39 @@ namespace GenericLambdas {
 
     // -------------------------------------------------------------------
 
+
+    struct IsGreaterThanFifty
+    {
+        auto operator() (const auto& n) -> bool {
+            return n > 50;
+        }
+    };
+
+    // generic function
+    //auto isGreaterThanFifty(const auto& n) -> bool {
+    //    return n > 50;
+    //};
+
+    // function template
+    //template <typename T>
+    //auto isGreaterThanFifty (const T& n) {
+    //    return n > 50; 
+    //};
+
     static void test_04()
     {
-        // define a generic lambda
-        auto isGreaterThanFifty = [](const auto& n) { return n > 50; };
+        // generic lambda
+        //auto isGreaterThanFifty = [](const auto& n) {
+        //    return n > 50; 
+        //};
+
+        IsGreaterThanFifty tmp{};
+        tmp(123.456);
+        tmp(123);
+
+        bool result = IsGreaterThanFifty{}(20);
+
+        // bool result = isGreaterThanFifty(20);
 
         std::vector<int> intValues{ 44, 65, 22, 77, 2 };
 
@@ -76,8 +105,10 @@ namespace GenericLambdas {
         auto it1 = std::find_if(
             std::begin(intValues),
             std::end(intValues),
-            isGreaterThanFifty
+           // isGreaterThanFifty
+            IsGreaterThanFifty{}
         );
+
         if (it1 != std::end(intValues)) {
             std::cout << "Found a value: " << *it1 << std::endl;
         }
@@ -88,7 +119,7 @@ namespace GenericLambdas {
         auto it2 = std::find_if(
             std::begin(doubleValues),
             std::end(doubleValues),
-            isGreaterThanFifty
+            IsGreaterThanFifty{}
         );
         if (it2 != std::end(doubleValues)) {
             std::cout << "Found a value: " << *it2 << std::endl;

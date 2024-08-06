@@ -6,11 +6,24 @@ module modern_cpp:variant;
 
 namespace VariantDemo {
 
+    static void test_00() 
+    {
+        std::variant<std::string, int, double > var{ "ABC"};
+
+        std::string tmp;
+
+        tmp = std::move(std::get<std::string>(var));
+
+        std::variant<int, std::string, double> empty;
+    }
+
     static void test_01() {
 
         std::variant<int, double, std::string> var{ 123 };
 
         size_t index{ var.index() };
+
+        
         int n{ std::get<int>(var) };  // std::get using type
 
         std::cout << index << ", value: " << n << std::endl;
@@ -96,16 +109,68 @@ namespace VariantDemo {
 
     // -------------------------------------------------------------------
 
+    // primary template
+    template <class T>
+    struct my_remove_reference 
+    {
+        using TYPE = T;
+    };
+
+    // template specialization for T == int
+    template <>
+    struct my_remove_reference<int&>
+    {
+        using TYPE = int;
+    };
+
+    // template specialization, if T is a Reference Type
+    template <class T>
+    
+    struct my_remove_reference <T&> {
+        using TYPE = T;
+    };
+
+
+
+
+
     static void test_03() {
+
+        std::vector<int> zahlen;
+
+        std::vector<int>::iterator  pos = zahlen.begin();
+
+        // ===
 
         std::variant<int, double, std::string> var{ 123 };
 
         // using a generic visitor (matching all types in the variant)
-        auto visitor = [](const auto& elem) {
-            std::cout << elem << std::endl;
+        
+        auto visitor = [](const auto& elem)
+        {
+            using t = decltype (elem);
+            using tOhneRef = my_remove_reference<t>::TYPE;
+            using tOhneRefUndConst = std::remove_const<tOhneRef>::type;
+
+            if constexpr ( std::is_same<tOhneRefUndConst, int>::value == true )
+            {
+                std::cout << "int: " << elem << std::endl;
+            }
+
+            else if constexpr (std::is_same<tOhneRefUndConst, double>::value == true ) {
+                std::cout << "double: " << elem << std::endl;
+            }
+            else if constexpr (std::is_same<tOhneRefUndConst, std::string>::value == true ) {
+                std::cout << "std::string: " << elem << std::endl;
+                std::cout << "Length: " << elem.length() << std::endl;
+            }
+            else
+            {
+                std::cout << "unbekannt" << std::endl;
+            }
         };
 
-        std::visit(visitor, var);
+        std::visit(visitor, var);  // C++ 17
 
         var = 123.456;
         std::visit(visitor, var);
@@ -119,15 +184,15 @@ namespace VariantDemo {
     class Visitor
     {
     public:
-        void operator() (int n) {
+        void operator() (int n) {   // Value
             std::cout << "int: " << n << std::endl;
         }
 
-        void operator() (double f) {
+        void operator() (double f) {   // Value
             std::cout << "double: " << f << std::endl;
         }
 
-        void operator() (std::string s) {
+        void operator() (const std::string& s) {  // Reference
             std::cout << "std::string: " << s << std::endl;
         }
     };
@@ -239,13 +304,14 @@ namespace VariantDemo {
 void main_variant()
 {
     using namespace VariantDemo;
-    test_01();
-    test_02();
-    test_03();
-    test_04();
-    test_05();
-    test_06();
-    test_07();
+    test_00();
+    //test_01();
+    //test_02();
+    //test_03();
+    //test_04();
+    //test_05();
+    //test_06();
+    //test_07();
 }
 
 // =====================================================================================

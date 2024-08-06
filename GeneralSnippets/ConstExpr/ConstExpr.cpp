@@ -14,8 +14,12 @@ namespace ConstExprComplex {
 
     public:
         // c'tors
-        constexpr Complex() : m_real{ }, m_imag{ } {}
-        constexpr Complex(float real, float imag) : m_real{ real }, m_imag{ imag } {}
+        constexpr Complex() : m_real{ }, m_imag{ }
+        {
+        }
+
+        constexpr Complex(float real, float imag) 
+            : m_real{ real }, m_imag{ imag } {}
 
         // getter
         constexpr float real() const { return m_real; }
@@ -29,6 +33,16 @@ namespace ConstExprComplex {
             return { real, imag };
         }
     };
+
+    static void testXXX()
+    {
+        []() {};
+        [] {};
+
+        []() {}();
+
+        constexpr auto komplizierterWert = [] () { return 1; } ();
+    }
 
     static void testComplex()
     {
@@ -256,6 +270,8 @@ namespace ConstExprCollatzInheritance {
 
 void main_constexpr()
 {
+    ConstExprComplex::testXXX();
+
     ConstExprComplex::testComplex();
     ConstExprComplexTemplate::testComplexTemplate();
     ConstExprPow::testPower();

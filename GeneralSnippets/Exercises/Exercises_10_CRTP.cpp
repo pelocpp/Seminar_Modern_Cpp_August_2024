@@ -9,7 +9,9 @@ namespace Exercises_CRTP {
     namespace Exercise_01 {
 
         using Clock = std::chrono::high_resolution_clock;
+
         constexpr long MaxIterations = 10000;
+
         constexpr bool Verbose = false;
         constexpr int Width = 400;
         constexpr int Height = 400;
@@ -99,6 +101,8 @@ namespace Exercises_CRTP {
                 << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count()
                 << " microseconds" << std::endl;
         }
+
+        // =================================================
 
         // CRTP approach: base class for all image types.
         // The template parameter T is used to specify the type

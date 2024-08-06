@@ -23,7 +23,37 @@ b) Github
 
 https://stackoverflow.com/questions/55883162/why-does-stdvector-allow-the-use-of-a-throwable-move-constructor-for-the-type
 
+= Frage 2:
+
+https://www.cppstories.com/2017/12/weakptr-memory/
+
+= Does Weak_ptr hold memory ???
+
 =============================================
+
+Dienstag:
+
+Generische Lambda Ausdrücke
+
+Konzepte (Concepts)    Da fehlt mir jetzt eine Grundlage ;)
+
+Variant
+
+...
+
+
+Mittwoch:
+
+Var. Templates
+
+Type Erasure
+
+Buchhandlung
+
+
+
+=============================================
+
 
 = Was sind meine Erwartungen?
 
@@ -198,4 +228,184 @@ Sind wir glücklich ??????????????  :-)
 
 Der std::shared_ptr funktioniert nicht immer :-(
 
+a) Wie funktioniert ???
+
+b) Was ist das Problem des std::shared_ptr 
+
 ===========================================
+
+Diskussion:
+
+Verwende ich Smart Pointer ???
+
+IMMER :)
+
+---------------------------------
+
+Go for Unique
+Go for Shared
+
+==> Pflegeleicht: Go for Unique
+
+Nachteil: EIN Besitzer.
+
+---------------------------------
+
+Go for Shared:   Mehrere Besitzer.
+
+Wann nehme ich einen Shared_Ptr?
+Wann nehme ich einen Weak_Ptr?
+
+"Wenn ich es nur anschauen will"
+
+   ==> Ohhh, Objekt ist gar nicht mehr da :)
+
+"Wenn ich selbst keinen Anspruch auf BESITZ erheben möchte"
+
+==> a) Ich möchte verwalten / NICHT besitzen:
+
+       ==> STL Container ==> Weak_Ptr
+       ==> Ohhh, Objekt ist gar nicht mehr da :)
+
+
+
+==> a) Ich möchte verwalten / besitzen:
+
+       ==> STL Container ==> shared_Ptr
+       ==> Besitz ist garantiert
+
+       ==> Man kann im einem Container Elemente entfernen.
+       
+       ==> Hoffnung damit: Speicher wird freigegeben:
+
+           Gibt es jemand anderen, der die Rolle des Besitzers
+           für sich in Anspruch nimmt ???
+
+     
+       ==> Man muss nicht zwingend Sharer-Ptr für KURZE Strecken weiterreichen.
+
+           Man kann auch Raw Zeiger weiterreichen (get): REGEL: KEIN delete.
+
+
+
+==============================================================
+
+shared_from_this:
+
+Ab C++ 11
+
+Beispiel:
+
+Datei
+
+Test_SharedFromThis.cpp
+
+Beschreibung:
+
+https://github.com/pelocpp/cpp_design_patterns/blob/master/Patterns/Observer/Resources/Readme.md
+
+==============================================================
+
+CRTP:
+
+Ein Vergleich:
+
+[Collection of Modern C++-Code Examples - Copyright (C) 2019-2024 Peter Loos]
+
+Classical Polymorphism Benchmark:
+Pixels: 160000
+Time taken: 16.884.734 microseconds
+
+CRTP Benchmark:
+Pixels: 160000
+Time taken: 16.898.075 microseconds
+[Done.]
+
+
+
+[Collection of Modern C++-Code Examples - Copyright (C) 2019-2024 Peter Loos]
+Classical Polymorphism Benchmark:
+Pixels: 160000
+Time taken: 1.997.142 microseconds
+
+CRTP Benchmark:
+Pixels: 160000
+Time taken: 395.044 microseconds
+[Done.]
+
+ca. Faktor 5
+
+
+// ====================================================
+
+Variant    // C - Union.
+
+== Ist ein Container für Werte (Daten) unterschiedlichen Typs.
+
+== Zu einem Zeitpunkt kann nur ein Wert
+   eines bestimmten Typs vorhanden sein
+
+
+Excel:
+
+Zelle // Cell:
+
+Zahlen, Currency, Gleitpunkt, Zeichenketten, Datum
+
+
+std::variant<int, double, std::string> var{ 123 };
+
+std::any var{ 123 };
+
+// ====================================================
+
+Compiler:  
+
+    template <typename T>   
+    auto add(T a, T b)
+    {
+        return a + b;
+    }
+
+
+Was nehe ich für T ?????
+
+Alles, was sich übersetzen lässt:
+
+===> Verhalten:   Reagierendes Verhalten.
+
+===> Verhalten:   Proaktives Verhalten.
+
+============================================
+
+Konstante / Literal:
+
+123.56f
+
+100_euro;
+
+200_pfund;
+
+300_dollar;
+
+520_gallonen;
+
+0x112211_farbe;   ==> Klasse Color / Objekt
+
+0x112211_rgb;   ==> Klasse Color / Objekt
+
+"123"_gallonen;
+
+
+"16:47:00"_zeit;
+
+100_euro  =========> Lexikon einer Programmiersprache
+                     erweitert;
+
+=========>  Operator:   Literal Operator
+
+            operator ""
+
+Grammatik eines Operators: 
+
+   operator +  LITERAL_IDENTIFIER ( params )
