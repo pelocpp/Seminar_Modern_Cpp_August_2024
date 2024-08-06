@@ -45,7 +45,7 @@ int main()
         //main_decltype();
         //main_default_initialization();
         //main_erase_remove_idiom();
-        main_exercises();
+        //main_exercises();
         //main_expression_templates();
         //main_generate();
         //main_generic_lambdas();
@@ -79,7 +79,7 @@ int main()
         //main_regular_expressions();
         //main_rvalue_lvalue();
         //main_sfinae();
-        //main_shared_ptr();
+        main_shared_ptr();
         //main_source_location();
         //main_sso();
         //main_static_assert();

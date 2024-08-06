@@ -14,6 +14,8 @@ namespace UniquePointerGeneral {
     static std::unique_ptr<int> loadUniquePointer()
     {
         std::unique_ptr<int> ptr{ std::make_unique<int>(100) };
+        
+        // return std::move(ptr);  // NO // NIEMALS
         return ptr;
     }
 
@@ -24,7 +26,7 @@ namespace UniquePointerGeneral {
         std::cout << "*ptr:    " << *ptr << std::endl;
 
         // take ownership right now:
-        // std::unique_ptr<int> ptr2{ std::move(ptr) };
+        std::unique_ptr<int> ptr2{ std::move(ptr) };
     }
 
     static void storeUniquePointerSafe(const std::unique_ptr<int>& ptr)
@@ -92,7 +94,7 @@ namespace UniquePointerGeneral {
         storeUniquePointer(ptr);
 
         // C++ Core Guidelines
-        storeUniquePointerAlternate(ptr.get());
+        // storeUniquePointerAlternate(ptr.get());
 
         // does this work?
         std::cout << "*ptr:   " << *ptr << std::endl;
@@ -137,6 +139,7 @@ namespace UniquePointerWrappingResourceHandles {
     // stateless callable object to delete FILE files
     struct FILE_Deleter
     {
+        // Aufrufbare Klasse
         void operator() (FILE* pFile) const
         {
             if (pFile != (FILE*)0) {

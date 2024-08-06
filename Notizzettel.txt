@@ -23,8 +23,6 @@ b) Github
 
 https://stackoverflow.com/questions/55883162/why-does-stdvector-allow-the-use-of-a-throwable-move-constructor-for-the-type
 
-
-
 =============================================
 
 = Was sind meine Erwartungen?
@@ -141,4 +139,63 @@ std::vector<int> vec (10); ==> Size: 10, Werte: 0
 
 std::vector<int> vec {10}; ==> Size: 1,  Wert:  10
 
+=============================================
 
+=============================================
+
+new: ====> delete   // "double delete" NOOOO
+
+
+Idee:
+
+== OO: Objekte:  
+
+   Konstruktoren:   Erzeugung
+   Destruktoren:    Scope  (lokales Objekt)
+
+   Deterministisch
+
+== Zusammenführung:
+
+   Konstruktor: new
+   Destruktor: delete
+
+----
+
+Idee: Socket: open, close  // CreateMutex, ReleaseMutex:
+
+   RAII
+
+---
+
+Idee: new / delete Hüllenobjekte // Wrapper
+
+auto_ptr: deprecated
+
+== std::unique_ptr
+
+== std::shared_ptr, std::weak_ptr
+
+Hüllenklassen:
+
+Frage der Strategie:
+
+Frage: Wer ist der Besitzer des Zeigers?
+
+A) Es gibt zu einem Zeitpunkt nur / genau EINEN Besitzer
+
+B) Es kann zu einem Zeitpunkt MEHRERE Besitzer geben
+
+=============================================
+
+std::unique_ptr:
+
+std::shared_ptr:
+
+===========================================
+
+Sind wir glücklich ??????????????  :-)
+
+Der std::shared_ptr funktioniert nicht immer :-(
+
+===========================================
