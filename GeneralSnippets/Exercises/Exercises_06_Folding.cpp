@@ -18,10 +18,10 @@ namespace Exercises_Folding {
 
         static void testExercise_01a() {
 
-            bool result = andAll(true, (1 > 2), true);
+            bool result = andAll(true, (1 > 2), (2 > 1));
             std::cout << std::boolalpha << result << std::endl;
 
-            result = andAll(true, true, true);
+            result = andAll(true, true, true, true, true, true);
             std::cout << std::boolalpha << result << std::endl;
         }
 

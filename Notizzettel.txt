@@ -8,6 +8,9 @@ Guten Morgen
 
 Peter Loos
 
+peter.loos@gmx.de
+
+
 // ==========================================
 
 a) VS Studio
@@ -28,6 +31,11 @@ https://stackoverflow.com/questions/55883162/why-does-stdvector-allow-the-use-of
 https://www.cppstories.com/2017/12/weakptr-memory/
 
 = Does Weak_ptr hold memory ???
+
+
+= Frage:
+
+= Geht das (Var. Templ. / Auspacken / Einpacken) auch für Move-Only Typen
 
 =============================================
 
@@ -51,6 +59,8 @@ Perfect Forwarding
 
 Folding
 
+Übung: andAll // Parameter nur vom Typ bool
+
 Range-Based Loop
 
 Placement New: Trennung von Speicherallokation und Objektkonstruktion
@@ -66,6 +76,23 @@ Alle Utility Klassen
 std::invoke
 
 Functional Programming
+
+
+In 10 Minuten:
+
+==> std::array  // std::span
+
+==> std::string_view
+
+
+
+==> std::optional
+
+==> Two-Phase Name Lookup
+
+==> std::invoke
+
+
 
 
 =============================================
@@ -435,3 +462,77 @@ Konstante / Literal:
 Grammatik eines Operators: 
 
    operator +  LITERAL_IDENTIFIER ( params )
+
+===================================================
+
+Folding
+
+Was ist das ???
+
+Mehrfache Anwendung desselben Operators
+
+1 + 2 + 3 + 4 + 5
+
+Technik:  Verbesserte Performanz
+
+======================================================
+
+Folding 
+
+Größere Objekte:   "Expression Templates"
+
+A + B + C + D +  ...
+
+C++ Grundlagen:
+
+class Matrix
+
+Matrix operator+ (const Matrix& left, const Matrix& right)
+{
+    // ........
+    return result ; // MATRIX
+}
+
+result = ((m1 + m2) + m3) + m4;
+
+result.m_values[x][y] = 
+
+    m1.m_values[x][y] + m2.m_values[x][y] + m3.m_values[x][y] + m4.m_values[x][y];
+
+Mögliche Lösung: Funktionen mit entsprechend vielen Paramtern:
+
+Matrix add (const Matrix& m1, const Matrix& m2);
+Matrix add (const Matrix& m1, const Matrix& m2, const Matrix& m3);
+Matrix add (const Matrix& m1, const Matrix& m2, const Matrix& m3, const Matrix& m4);
+
+// short circuit evaluation
+
+===========================================================
+
+Heterogene Container
+
+Homogener Container
+
+Polymorphismus: Dyn. vs. Statisch
+
+Duck Typing   // Python
+
+Type Erasure
+
+
+===========================================================
+
+C-Style Array
+
+vs
+
+std::array
+
+Funktionalität:  IDENTISCH
+
+==> Fixed Size Arrays.
+
+std::array   ==> Stack
+
+std::vector  ==> Heap
+

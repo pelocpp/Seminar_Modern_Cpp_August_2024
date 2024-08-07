@@ -27,7 +27,7 @@ int main()
         //main_any();
         //main_apply();  
        // main_argument_dependent_name_lookup();
-        //main_array();
+       // main_array();
         //main_array_decay();
         //main_attributes();
        // main_auto();
@@ -50,7 +50,7 @@ int main()
         //main_default_initialization();
         //main_erase_remove_idiom();
        // main_exercises();
-        //main_expression_templates();
+       // main_expression_templates();
         //main_generate();
        // main_generic_lambdas();
         //main_exception_safety();
@@ -65,7 +65,7 @@ int main()
         //main_lambdas();
         //main_lambda_and_closure();
         //main_lambdas_this_closure();
-        main_literals();
+        //main_literals();
         //main_memory_leaks_detection();
         //main_metaprogramming_01();
         //main_metaprogramming_02(); 
@@ -73,7 +73,7 @@ int main()
         //main_modules();
         //main_move_semantics();
         //main_optional();
-        //main_perfect_forwarding();
+       // main_perfect_forwarding();
         //main_placement_new();
         //main_raii();
         //main_raii_02();
@@ -87,7 +87,7 @@ int main()
         //main_source_location();
         //main_sso();
         //main_static_assert();
-        //main_string_view();
+        main_string_view();
         //main_structured_binding();
         //main_class_templates_basics_01();
         //main_class_templates_basics_02();
@@ -100,14 +100,14 @@ int main()
         //main_trim(); 
         //main_tuple(); 
         //main_two_phase_name_lookup();
-        //main_type_erasure();
+       // main_type_erasure();
         //main_type_traits();
         //main_unique_ptr();
-        //main_variadic_templates_introduction();
+     //  main_variadic_templates_introduction();
         //main_variadic_templates_working_on_every_argument();
         //main_variadic_templates_sum_of_sums();
         //main_variadic_templates_mixins();
-      //  main_variant();
+       // main_variant();
         //main_virtual_base_class_destructor();
         //main_virtual_override_final();
         //main_weak_pointer();

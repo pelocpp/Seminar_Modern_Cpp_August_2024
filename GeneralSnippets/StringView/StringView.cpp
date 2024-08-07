@@ -22,6 +22,12 @@ namespace StringViewDemonstration {
 
     static void test_02()
     {
+        const char* s1{ "aaaaaaaaaaaaaaaaaaaaaaaaa" };
+
+        static  std::string_view s2{ "aaaaaaaaaaaaaaaaaaaaaaaaa" };
+
+       // s2[0] = '?';
+
         std::string s{ "How vexingly quick daft zebras jump!" };
 
         std::string_view sv{ s };

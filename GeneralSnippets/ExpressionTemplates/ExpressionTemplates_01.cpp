@@ -139,6 +139,7 @@ namespace ExpressionTemplates {
         std::cout << "Expression Template 02:" << std::endl;
 
         Matrix<Size> a{ 1.0 }, b{ 2.0 }, c{ 3.0 }, d{ 4.0 };
+
         Matrix<Size> result{};
 
         // adding 2 matrices
@@ -150,7 +151,7 @@ namespace ExpressionTemplates {
         }
 
         // adding 3 matrices
-        MatrixExpr<MatrixExpr<Matrix<Size>, Matrix<Size>>, Matrix<Size>> sumABC(sumAB, c);
+        MatrixExpr <MatrixExpr<Matrix<Size>, Matrix<Size>>, Matrix<Size>> sumABC (sumAB, c);
         for (size_t y{}; y != a.getSize(); ++y) {
             for (size_t x{}; x != a.getSize(); ++x) {
                 result(x, y) = sumABC(x, y);
@@ -181,7 +182,7 @@ namespace ExpressionTemplates {
         //MatrixExpr<MatrixExpr<Matrix<Size>, Matrix<Size>>, Matrix<Size>> sumABC{ sumAB, c };
         //MatrixExpr<MatrixExpr<MatrixExpr<Matrix<Size>, Matrix<Size>>, Matrix<Size>>, Matrix<Size>> sumABCD{ sumABC, d };
 
-        // or - using template argument type deduction:
+        // or - using template argument type deduction: // CTAD
         MatrixExpr sumAB{ a, b };
         MatrixExpr sumABC{ sumAB, c };
         MatrixExpr sumABCD{ sumABC, d };

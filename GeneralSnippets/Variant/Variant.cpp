@@ -216,8 +216,12 @@ namespace VariantDemo {
 
     static void test_05() {
 
+        // vektor enthält Werte "unterschiedlichen" Typs
+
         std::vector<std::variant<int, long, long long, float, double>>
             vec = { 100, 200l, 300ll, 400.5f, 500.5 };
+
+
 
         // display each value
         std::cout << "Values:      ";
@@ -304,12 +308,12 @@ namespace VariantDemo {
 void main_variant()
 {
     using namespace VariantDemo;
-    test_00();
+    //test_00();
     //test_01();
     //test_02();
     //test_03();
     //test_04();
-    //test_05();
+    test_05();
     //test_06();
     //test_07();
 }

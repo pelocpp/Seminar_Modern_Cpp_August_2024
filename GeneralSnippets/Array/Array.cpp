@@ -86,6 +86,9 @@ namespace StdArray {
     // -------------------------------------------------------------------
     // passing std::array as parameter
 
+    static void print(int *data) {
+    }
+
     static void print(const std::array<int, 5>& array) {
         std::cout << "Length: " << array.size() << std::endl;
     }
@@ -120,6 +123,9 @@ namespace StdArray {
         std::cout << "back: " << array.back() << std::endl;
         std::cout << "empty: " << array.empty() << std::endl;
         std::cout << "max_size: " << array.max_size() << std::endl;
+
+        std::array<int, 4> numbers;
+        bool b = numbers.empty();
 
         array.fill(9);
 
@@ -224,6 +230,7 @@ namespace StdArray {
         // copying via operator= isn't supported:
         // array type 'std::string [4]' is not assignable
         std::string other[4];
+
         // other = cArray;  
 
         // algorithm std::copy works
@@ -254,6 +261,7 @@ namespace StdArray {
 
         // copying via operator= is supported ... in linear time
         std::array<std::string, 4> other;
+        
         other = array;
 
         // operator== compiles and does expected value comparison of all array elements!
@@ -305,6 +313,9 @@ namespace StdArray {
     // helper for creating a std::array from a C-array
 
     static void test_20() {
+
+        // array decay
+        char zeichen[20] { "Hello C++ 20" };
 
         // type is deduced to std::array<char, 13>
         // Note: see std::array above
@@ -370,23 +381,28 @@ namespace StdArray {
 
     static void test_31() {
 
-        int carr[]{ 1, 2, 3, 4, 5 };
-        printSpan(carr);
-
-        std::array arr{ 6, 7, 8, 9, 10 };
-        printSpan(arr);
-
-        std::vector<int> vec{ 1, 3, 5, 7, 9 };
-        printSpan(vec);
-
         //int carr[]{ 1, 2, 3, 4, 5 };
-        //printSpan(std::span{ carr });
+        //printSpan(carr);
 
         //std::array arr{ 6, 7, 8, 9, 10 };
-        //printSpan(std::span{ arr });
+        //printSpan(arr);
 
-        //std::vector vec{ 1, 3, 5, 7, 9 };
-        //printSpan(std::span{ vec });
+        //std::vector<int> vec{ 1, 3, 5, 7, 9 };
+        //printSpan(vec);
+
+        int carr[]{ 1, 2, 3, 4, 5 };
+
+        std::span spC{ carr };
+
+        spC[0] = 99;
+
+        printSpan(spC);
+
+        std::array arr{ 6, 7, 8, 9, 10 };
+        printSpan(std::span{ arr });
+
+        std::vector vec{ 1, 3, 5, 7, 9 };
+        printSpan(std::span{ vec });
     }
 
     // --------------------------------------------------------------------
@@ -396,6 +412,8 @@ namespace StdArray {
 
         std::cout << std::format("Number of elements: {}\n", values.size());
         std::cout << std::format("Size of span: {}\n", values.size_bytes());
+
+       // values[0] = 99;
 
         for (const auto elem : values) {
             std::cout << std::format("{} ", elem);

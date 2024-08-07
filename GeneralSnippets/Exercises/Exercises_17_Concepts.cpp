@@ -157,13 +157,16 @@ namespace Exercises_Concepts {
             // Using Function Overloading
 
             template<typename T>
+            
                 requires std::same_as<T, bool>
             bool andAll(T cond) {
                 return cond;
             }
 
             template<typename T, typename ... TRest>
-                requires std::same_as<T, bool> && (std::same_as<TRest, bool> && ...)
+                
+                requires std::same_as<T, bool> && ( std::same_as<TRest, bool> && ... )
+            
             bool andAll(T cond, TRest ... conds) {
                 return cond && andAll(conds...);
             }
@@ -184,8 +187,14 @@ namespace Exercises_Concepts {
 
             // Using Folding
 
+            template<typename T>
+            concept SameAsBool = std::same_as<T, bool>;
+
             template<typename ... TArgs>
-                requires (std::same_as<TArgs, bool> && ...)
+ 
+                // requires ( std::same_as<TArgs, bool> && ... )
+                   requires  ( SameAsBool<TArgs> && ... )
+            
             bool andAll(TArgs ... args) {
                 return (... && args);
             }
@@ -206,7 +215,16 @@ namespace Exercises_Concepts {
 
             // Using "Abbreviated Function Templates Syntax"
 
-            static bool andAll(std::same_as<bool> auto ... args) {
+            static bool andAll (std::same_as<bool> auto ... args) {
+                
+                return (... && args);
+            }
+
+            template<typename T>
+            concept SameAsBool = std::same_as<T, bool>;
+
+            static bool andAllEx(SameAsBool auto ... args) {
+
                 return (... && args);
             }
 

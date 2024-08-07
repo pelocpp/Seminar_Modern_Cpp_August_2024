@@ -4,6 +4,57 @@
 
 module modern_cpp:folding;
 
+namespace FoldingSeminar {
+
+    auto addierer( auto ... args) {
+
+        // Summe aller Wert in args
+        // args0 + args1 + args2 + ... + argsN
+
+        // Folding
+        auto result = ( ... + args ) ;
+
+        return result;
+    }
+
+    auto subtrahierer(auto ... args) {
+
+        // Summe aller Wert in args
+        // args0 + args1 + args2 + ... + argsN
+
+        // 1 - 2 - 3:  -4
+        // 1 - (2 - 3): 2
+                
+        // Folding
+        auto result = (args -  ...);
+
+        return result;
+    }
+
+    void printer (auto first, auto ... args) {
+
+        //int a, b, c;
+        //a = 1, b = 2, c = 3;
+
+        // ( std::cout << ... << args );
+
+        // (... op pack)   // Unary Left Fold
+
+        std::cout << first;
+
+        ( ...   ,  ( std::cout << " = " << args ) );
+    }
+
+    void test_folding_seminar() {
+
+        auto result = addierer(1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+        printer(1, 2.5, 333, "ABCE", '?');
+        std::cout << std::endl;
+    }
+
+}
+
 namespace Folding {
 
     /* folding examples: introduction
@@ -128,8 +179,14 @@ namespace Folding {
     }
 }
 
+
+
 void main_folding()
 {
+    using namespace FoldingSeminar;
+    test_folding_seminar();
+    return;
+
     using namespace Folding;
     test_01();
     test_02();

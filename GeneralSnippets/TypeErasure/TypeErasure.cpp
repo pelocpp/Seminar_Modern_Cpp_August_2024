@@ -226,6 +226,7 @@ namespace TypeErasureUsingTemplateTechniquesAndConcepts {
 
 namespace BookStoreUsingDynamicPolymorphism {
 
+    // interface
     struct IMedia
     {
         virtual ~IMedia() = default;
@@ -250,6 +251,7 @@ namespace BookStoreUsingDynamicPolymorphism {
         // getter / setter
         std::string getAuthor() const { return m_author; }
         std::string getTitle() const { return m_title; }
+        
         double getPrice() const { return m_price; }
         size_t getCount() const { return m_count; }
     };
@@ -270,6 +272,7 @@ namespace BookStoreUsingDynamicPolymorphism {
         // getter / setter
         std::string getTitle() const { return m_title; }
         std::string getDirector() const { return m_director; }
+        
         double getPrice() const { return m_price; }
         size_t getCount() const { return m_count; }
     };
@@ -278,10 +281,12 @@ namespace BookStoreUsingDynamicPolymorphism {
     {
     private:
         using Stock = std::vector<std::shared_ptr<IMedia>>;
+        
         using StockList = std::initializer_list<std::shared_ptr<IMedia>>;
 
     public:
-        explicit Bookstore(StockList stock) : m_stock{ stock } {}
+        explicit Bookstore(StockList stock) 
+            : m_stock{ stock } {}
 
         void addMedia(const std::shared_ptr<IMedia>& media) {
             m_stock.push_back(media);
@@ -323,7 +328,7 @@ namespace BookStoreUsingDynamicPolymorphism {
         std::shared_ptr<IMedia> movieTarantino{ std::make_shared<Movie>("Once upon a time in Hollywood", "Quentin Tarantino", 6.99, 3) };
         std::shared_ptr<IMedia> movieBond{ std::make_shared<Movie>("Spectre", "Sam Mendes", 8.99, 6) };
 
-        Bookstore bookstore{
+        Bookstore bookstore {
             cBook, movieBond, javaBook, cppBook, csharpBook, movieTarantino
         };
 
@@ -444,20 +449,35 @@ namespace BookStoreUsingTypeErasure {
         size_t getCount() const { return m_count; }
     };
 
+    //template <typename T>
+    //concept IsIterable = requires(T v)
+    //{
+    //    { std::as_const(v).hasNext() } -> std::convertible_to<bool>;
+    //    { v.next() } -> std::same_as<int>;
+    //    { v.reset() }-> std::convertible_to<void>;
+    //};
+
     template<typename T>
-    concept MediaConcept = requires (const T & m)
+    concept MediaConcept = requires (const T& m)
     {
         { m.getPrice() } -> std::same_as<double>;
         { m.getCount() } -> std::same_as<size_t>;
     };
 
+
+
     template <typename ... TMedia>
-        requires (MediaConcept<TMedia> && ...)
+        
+        
+        requires ( MediaConcept<TMedia> && ... )
+    
+    
     class Bookstore
     {
     private:
-        using Stock = std::vector<std::variant<TMedia ...>>;
-        using StockList = std::initializer_list<std::variant<TMedia ...>>;
+        using StockType = std::variant<TMedia ...>;
+        using Stock = std::vector<StockType>;
+        using StockList = std::initializer_list<StockType>;
 
     public:
         explicit Bookstore(StockList stock) : m_stock{ stock } {}
@@ -465,7 +485,9 @@ namespace BookStoreUsingTypeErasure {
         // template member method
         template <typename T>
         void addMedia(const T& media) {
-            // m_stock.push_back(std::variant<TMedia ...>{ media });  // ausführliche Schreibweise
+            
+            m_stock.push_back(StockType{ media });  // ausführliche Schreibweise
+            
             m_stock.push_back(media);
         }
 
@@ -483,11 +505,12 @@ namespace BookStoreUsingTypeErasure {
                 double price{};
                 size_t count{};
 
-                std::visit(
+                std::visit (
                     [&](const auto& element) {
                         price = element.getPrice();
                         count = element.getCount();
                     },
+
                     media
                 );
 

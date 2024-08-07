@@ -331,6 +331,7 @@
     <ClCompile Include="TemplateTemplateParameter\TemplateTemplateParameter_01.cpp" />
     <ClCompile Include="TemplateTemplateParameter\TemplateTemplateParameter_02.cpp" />
     <ClCompile Include="Test_SharedFromThis.cpp" />
+    <ClCompile Include="Test_Variadic.cpp" />
     <ClCompile Include="ToUnderlying\Module_ToUnderlying.ixx" />
     <ClCompile Include="ToUnderlying\ToUnderlying.cpp" />
     <ClCompile Include="Transform\Module_Transform.ixx" />

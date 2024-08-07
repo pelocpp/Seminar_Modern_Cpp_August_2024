@@ -4,6 +4,218 @@
 
 module modern_cpp:variadic_templates;
 
+namespace VariadicTemplates_Seminar {
+
+    // C++ 11
+
+    // non variadic
+    //template <typename T>
+    //void printer(T n)
+    //{
+    //    std::cout << n << std::endl;
+    //}
+
+    void printer()
+    {
+        std::cout << "bin hier" << std::endl;
+    }
+
+    // variadic
+    template <typename T, typename ... TArgs> // einpacken
+    void printer(T n, TArgs ... args)            // einpacken
+    {
+        std::cout << n << std::endl;
+
+        printer(args ... );                  // auspacken
+    }
+
+    // --------------------------
+
+    // C++ 20 
+    void printer1()
+    {
+    }
+
+    // variadic
+    void printer1(auto n, auto ... args)
+    {
+        std::cout << n << std::endl;
+
+        printer1(args ...);
+    }
+
+    // -------------------------------
+
+    // C++ 17
+
+    // variadic
+    template <typename T, typename ... TArgs>     // einpacken
+    void printer2(T n, TArgs ... args)            // einpacken
+    {
+        std::cout << n << std::endl;
+
+        if constexpr (sizeof ... (args) > 0) {
+
+            printer2(args ...);                  // auspacken
+        }
+    }
+
+
+    // -------------------------------
+
+    // C++ 20
+
+    // variadic
+    void printer3(auto n, auto ... args)            // einpacken
+    {
+        std::cout << n << std::endl;
+
+        if constexpr ( sizeof ... (args) > 0 ) {
+
+            printer3(args ...);                  // auspacken
+        }
+    }
+
+    // -------------------------------
+
+    // C++ 20
+
+    // variadic
+    void printer4( auto ... args )            // einpacken
+    {
+        std::cout << "printer4:" << std::endl;
+
+        std::initializer_list<int> list { args ... };
+
+        // range-based loop
+        for ( auto n : list) {
+
+            std::cout << n << std::endl;
+        }
+    }
+
+    void printer5(auto first, auto ... args)            // einpacken
+    {
+        std::cout << "printer5:" << std::endl;
+
+        using Type = decltype(first);
+
+        std::initializer_list<Type> list{ first, args ... };
+
+        // range-based loop
+        for (auto n : list) {
+
+            std::cout << n << std::endl;
+        }
+    }
+
+    void printer6(auto&& first, auto&& ... args)            // einpacken
+    {
+        std::cout << "printer6:" << std::endl;
+
+        using Type = decltype(first);
+        using TypeWORef = std::remove_reference<decltype(first)>::type;
+
+        TypeWORef dummy{};
+
+     //   dummy = std::move(first);
+
+       // dummy = first;
+
+        //std::initializer_list<TypeWORef> list{ 
+        //    std::forward<Type>(first), 
+        //    std::forward<Type>(args) ...
+        //};
+
+        std::cout << "stopper" << std::endl;
+
+        //std::initializer_list<Type> list{ first, args ... };
+
+        //// range-based loop
+        //for (auto n : list) {
+
+        //    std::cout << n << std::endl;
+        //}
+    }
+
+    class X
+    {
+    public:
+        X() = default;
+
+        // non copy-able
+        X(const X&) = delete;
+        X& operator= (const X&) = delete;
+
+        // moveable
+        X (X&&) noexcept = default;
+        X& operator= (X&&) noexcept = default;
+    };
+
+    void test_seminar()
+    {
+        static_assert (! std::is_copy_constructible<X>::value);
+
+        static_assert (std::is_move_constructible<X>::value);
+
+       const X x1{};
+        X x2{};
+        X x3{};
+
+        int n = 123;
+
+        printer6 (x1, x2, x3, X{});
+    }
+
+    // ========================================================
+
+    class Unknown
+    {
+    private:
+        int m_var1;
+        int m_var2;
+        int m_var3;
+
+    public:
+        Unknown() : m_var1{ -1 }, m_var2{ -1 }, m_var3{ -1 } {
+            std::cout << "c'tor()" << std::endl;
+        }
+
+        Unknown(int n) : m_var1{ n }, m_var2{ -1 }, m_var3{ -1 } {
+            std::cout << "c'tor(int)" << std::endl;
+        }
+
+        Unknown(int n, int m) : m_var1{ n }, m_var2{ m }, m_var3{ -1 } {
+            std::cout << "c'tor(int, int)" << std::endl;
+        }
+
+        Unknown(int n, int m, int k) : m_var1{ n }, m_var2{ m }, m_var3{ k } {
+            std::cout << "c'tor(int, int, int)" << std::endl;
+        }
+    };
+
+    template <typename T, typename ... TArgs>
+    std::unique_ptr <T> my_make_unique(TArgs ... args)
+    {
+        std::unique_ptr <T> tmp{ new T{ args ... } };
+        return tmp;
+    }
+
+    template <typename T, typename ... TArgs>
+    std::unique_ptr <T> my_make_uniqueEx(TArgs&& ... args)
+    {
+        std::unique_ptr <T> tmp{ new T{ std::forward<TArgs>(args) ... } };
+        return tmp;
+    }
+
+    void test_seminar_02()
+    {
+        std::unique_ptr <Unknown> up = std::make_unique<Unknown>( 1, 2, 3 );
+    
+        std::unique_ptr <Unknown> up2 = my_make_uniqueEx<Unknown, int, int, int>(1, 2, 3);
+    }
+}
+
 namespace VariadicTemplatesIntro_01 {
 
     // ====================================================================
@@ -39,7 +251,8 @@ namespace VariadicTemplates_TestClassUnknown {
     // Nur die Konstruktoren sind interessant
     // ========================================================================
 
-    class Unknown {
+    class Unknown
+    {
     private:
         int m_var1;
         int m_var2;
@@ -273,8 +486,13 @@ namespace VariadicTemplatesIntro_05 {
     }
 }
 
+
 void main_variadic_templates_introduction()
 {
+    using namespace VariadicTemplates_Seminar;
+    test_seminar();
+    return;
+
     using namespace VariadicTemplatesIntro_01;
     test_printer_01();
 
