@@ -72,7 +72,7 @@ int main()
         //main_modularized_standard_library(); 
         //main_modules();
         //main_move_semantics();
-        //main_optional();
+       // main_optional();
        // main_perfect_forwarding();
         //main_placement_new();
         //main_raii();
@@ -87,7 +87,7 @@ int main()
         //main_source_location();
         //main_sso();
         //main_static_assert();
-        main_string_view();
+        //main_string_view();
         //main_structured_binding();
         //main_class_templates_basics_01();
         //main_class_templates_basics_02();
@@ -99,7 +99,7 @@ int main()
         //main_transform();
         //main_trim(); 
         //main_tuple(); 
-        //main_two_phase_name_lookup();
+        main_two_phase_name_lookup();
        // main_type_erasure();
         //main_type_traits();
         //main_unique_ptr();
