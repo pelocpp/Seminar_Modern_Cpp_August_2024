@@ -3,6 +3,7 @@
 // =====================================================================================
 
 import modern_cpp;
+
 import modern_cpp_exercises;
 
 import std;
@@ -39,7 +40,7 @@ int main()
         //main_concepts_requires_classes();
        // main_concepts_requires_functions();
         //main_constructor_invocations();
-       // main_constexpr();
+        main_constexpr();
         //main_constexpr_02();
         //main_constexpr_crc();
         //main_const_variants();
