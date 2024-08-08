@@ -74,7 +74,7 @@ int main()
         //main_move_semantics();
        // main_optional();
        // main_perfect_forwarding();
-        //main_placement_new();
+        main_placement_new();
         //main_raii();
         //main_raii_02();
         //main_random();
@@ -99,7 +99,7 @@ int main()
         //main_transform();
         //main_trim(); 
         //main_tuple(); 
-        main_two_phase_name_lookup();
+       // main_two_phase_name_lookup();
        // main_type_erasure();
         //main_type_traits();
         //main_unique_ptr();

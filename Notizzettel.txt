@@ -21,8 +21,6 @@ b) Github
 
     https://peterloos.de/page/training/
 
-
-
 =============================================
 
 = Fragen:
@@ -572,4 +570,56 @@ std::string Phone:  ""
 =================================
 
 Two-Phase Name Lookup
+
+==================================
+
+std::thread   joinable
+
+
+std::jthread   Kann auf join bzw. detach verzichten !!!
+
+==================================
+
+RAII:
+
+Ähnlich:  Unique - Klasse:
+
+Hüllenkonzept // Hüllenklasse:
+
+Beispiel: Mutex
+
+Konstruktor:    lock
+Destruktor.      unlock
+
+Mutex
+
+
+==================================
+
+Gegenseitiger Auschluss:   Konkurrierender Zugriff verhindert wird.
+
+MUTEX
+
+
+Kooperation von Threads:
+
+==> Berechnen:   Habe ein Ergebnis berechnet :)                       // notifiy
+
+==> Ergebnis erhalten:   Hmmm, Ergebnis ist noch nicht da :(    // suspend, wait
+
+std::condition_variable    // Monitor-Konzept Dijkstra
+
+
+==> std::future  ==> future::get   BLOCKING
+
+"Fluffigere Lösung"  ==> Non Blocking Lösung
+
+Konzept:  Dijkstra  ==> Monitor Konzept
+
+
+=======================================================
+
+Placement new
+
+=======================================================
 
